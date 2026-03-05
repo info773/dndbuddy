@@ -3,5 +3,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* --color-name123: #050030; */
+  --font-rpg: "MedievalSharp", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* src/index.css */
+.nav-pill {
+  @apply bg-slate-400 p-2 rounded-md;
 }

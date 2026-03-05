@@ -37,6 +37,7 @@ export default defineConfig([
       "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
       "react/jsx-no-undef": "warn",
       "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
     },
     settings: {
       react: {

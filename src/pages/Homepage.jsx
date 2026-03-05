@@ -1,10 +1,17 @@
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 
 function Homepage() {
   return (
-    <div>
+    <div className="flex flex-col min-w-screen min-h-screen">
       <NavBar />
-      <h1>RPG Buddy</h1>
+      <div className="flex flex-col flex-1 justify-center items-center">
+        <img src="/logo_unicorn.png" alt="Unicorn Logo" className="h-150" />
+        <p className="my-8 font-rpg text-7xl">RPG-Buddy</p>
+      </div>
+      <div className="mt-auto">
+        <Footer />
+      </div>
     </div>
   );
 }
