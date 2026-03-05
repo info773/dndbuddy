@@ -48,7 +48,7 @@ function Form({ dispatch }) {
           value={form.hp}
           onChange={(e) => setForm((form) => ({ ...form, hp: e.target.value }))}
         />
-        <button className="bg-slate-700 p-1 border-2 rounded-md text-slate-50">
+        <button className="bg-slate-700 hover:bg-slate-600 p-1 border-2 rounded-md text-slate-50 transition-colors duration-150">
           Add
         </button>
       </form>

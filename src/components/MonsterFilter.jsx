@@ -9,7 +9,7 @@ function MonsterFilter({ dispatch }) {
           payload: e.target.value,
         })
       }
-      className="bg-slate-300 mx-10 my-4 p-0.5 border-2 rounded-md"
+      className="bg-slate-300 hover:bg-slate-200 mx-10 my-4 p-0.5 border-2 rounded-md transition-colors duration-150"
     >
       <option value="desc">Descending</option>
       <option value="asc">Ascending</option>

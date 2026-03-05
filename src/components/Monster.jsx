@@ -5,7 +5,7 @@ function Monster({ name, init, hp, id, dispatch }) {
     <div className="flex gap-2 p-1">
       <button
         onClick={() => dispatch({ type: ACTIONS.DELETE_MONSTER, payload: id })}
-        className="bg-slate-900 border-2 rounded-full w-7 h-7 text-slate-300"
+        className="bg-slate-900 hover:bg-slate-700 border-2 rounded-full w-7 h-7 text-slate-300 transition-colors duration-150"
       >
         X
       </button>
