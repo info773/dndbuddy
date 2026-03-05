@@ -17,6 +17,7 @@ function Form({ dispatch }) {
     };
 
     dispatch({ type: ACTIONS.ADD_MONSTER, payload: newMonster });
+    setForm({ name: "", init: "", hp: "" });
   }
 
   return (
