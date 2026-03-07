@@ -1,4 +1,5 @@
 import ACTIONS from "../store/actions";
+import MonsterCalc from "./MonsterCalc";
 
 function Monster({ name, init, hp, id, dispatch }) {
   return (
@@ -42,6 +43,7 @@ function Monster({ name, init, hp, id, dispatch }) {
           })
         }
       />
+      <MonsterCalc dispatch={dispatch} id={id} />
     </div>
   );
 }

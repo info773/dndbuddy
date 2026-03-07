@@ -3,30 +3,7 @@ import Homepage from "./pages/Homepage";
 import Battletracker from "./pages/Battlettracker";
 import { useReducer } from "react";
 import ACTIONS from "./store/actions";
-
-const initialState = {
-  monsters: [
-    {
-      name: "Bandit",
-      init: 14,
-      hp: 45,
-      id: 1,
-    },
-    {
-      name: "Guard",
-      init: 12,
-      hp: 78,
-      id: 2,
-    },
-    {
-      name: "Dragon",
-      init: 21,
-      hp: 254,
-      id: 3,
-    },
-  ],
-  monsterFilter: "desc",
-};
+import initialState from "./store/initialState";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -57,6 +34,26 @@ function reducer(state, action) {
         monsterFilter: action.payload,
       };
 
+    case ACTIONS.ADD_MONSTER_HP:
+      return {
+        ...state,
+        monsters: state.monsters.map((monster) =>
+          monster.id === action.payload.id
+            ? { ...monster, hp: Number(monster.hp) + Number(action.payload.hp) }
+            : monster,
+        ),
+      };
+
+    case ACTIONS.SUBSTRACT_MONSTER_HP:
+      return {
+        ...state,
+        monsters: state.monsters.map((monster) =>
+          monster.id === action.payload.id
+            ? { ...monster, hp: Number(monster.hp) - Number(action.payload.hp) }
+            : monster,
+        ),
+      };
+
     default:
       throw new Error("action unkown");
   }
@@ -72,7 +69,7 @@ export default function App() {
     <div className="bg-slate-400 min-h-screen">
       <BrowserRouter>
         <Routes>
-          <Route index element={<Homepage />} />
+          <Route path="/" element={<Homepage />} />
           <Route
             path="/battletracker"
             element={
