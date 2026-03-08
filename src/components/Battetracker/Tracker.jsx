@@ -1,7 +1,10 @@
+import { useState } from "react";
 import Monster from "./Monster";
 import MonsterFilter from "./MonsterFilter";
 
 function Tracker({ monsters, monsterFilter, dispatch }) {
+  const [openNotesId, setOpenNotesId] = useState(null);
+
   if (monsterFilter === "desc") {
     monsters.sort((a, b) => b.init - a.init);
   } else if (monsterFilter === "asc") {
@@ -23,7 +26,10 @@ function Tracker({ monsters, monsterFilter, dispatch }) {
             hp={monster.hp}
             key={monster.id}
             id={monster.id}
+            notes={monster.notes}
             dispatch={dispatch}
+            openNotesId={openNotesId}
+            setOpenNotesId={setOpenNotesId}
           />
         ))}
       </div>

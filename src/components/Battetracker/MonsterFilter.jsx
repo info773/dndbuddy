@@ -1,4 +1,4 @@
-import ACTIONS from "../store/actions";
+import ACTIONS from "../../store/actions";
 
 function MonsterFilter({ dispatch }) {
   return (

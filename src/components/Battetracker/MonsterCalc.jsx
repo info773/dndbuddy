@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ACTIONS from "../store/actions";
+import ACTIONS from "../../store/actions";
 
 function MonsterCalc({ dispatch, id }) {
   const [hp, setHp] = useState("");

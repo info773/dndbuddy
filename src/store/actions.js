@@ -5,6 +5,7 @@ const ACTIONS = {
   CHANGE_MONSTER_FILTER: "change_monster_filter",
   ADD_MONSTER_HP: "add_monster_hp",
   SUBSTRACT_MONSTER_HP: "substract_monster_hp",
+  CHANGE_NOTES: "change_notes",
 };
 
 export default ACTIONS;

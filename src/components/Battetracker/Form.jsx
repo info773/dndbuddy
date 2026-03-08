@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ACTIONS from "../store/actions";
+import ACTIONS from "../../store/actions";
 
 function Form({ dispatch }) {
   const [form, setForm] = useState({ name: "", init: "", hp: "" });
@@ -14,6 +14,7 @@ function Form({ dispatch }) {
       init: form.init,
       hp: form.hp,
       id: id,
+      notes: "",
     };
 
     dispatch({ type: ACTIONS.ADD_MONSTER, payload: newMonster });

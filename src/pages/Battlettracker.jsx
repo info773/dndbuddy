@@ -1,8 +1,8 @@
-import Form from "../components/Form";
-import NavBar from "../components/NavBar";
-import Tracker from "../components/Tracker";
+import Form from "../components/Battetracker/Form";
+import NavBar from "../components/shared/NavBar";
+import Tracker from "../components/Battetracker/Tracker";
 import ACTIONS from "../store/actions";
-import Footer from "../components/Footer";
+import Footer from "../components/shared/Footer";
 
 function Battlettracker({ monsters, monsterFilter, dispatch }) {
   return (

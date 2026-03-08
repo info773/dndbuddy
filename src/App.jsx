@@ -54,6 +54,16 @@ function reducer(state, action) {
         ),
       };
 
+    case ACTIONS.CHANGE_NOTES:
+      return {
+        ...state,
+        monsters: state.monsters.map((monster) =>
+          monster.id === action.payload.id
+            ? { ...monster, notes: action.payload.notes }
+            : monster,
+        ),
+      };
+
     default:
       throw new Error("action unkown");
   }
