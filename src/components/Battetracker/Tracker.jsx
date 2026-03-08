@@ -27,6 +27,7 @@ function Tracker({ monsters, monsterFilter, dispatch }) {
             key={monster.id}
             id={monster.id}
             notes={monster.notes}
+            status={monster.status}
             dispatch={dispatch}
             openNotesId={openNotesId}
             setOpenNotesId={setOpenNotesId}

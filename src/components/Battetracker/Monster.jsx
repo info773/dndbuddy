@@ -1,6 +1,8 @@
 import ACTIONS from "../../store/actions";
 import MonsterCalc from "./MonsterCalc";
 import MonsterNotes from "./MonsterNotes";
+import StatusEffects from "./StatusEffects";
+import StatusOverview from "./StatusOverview";
 
 function Monster({
   name,
@@ -8,6 +10,7 @@ function Monster({
   hp,
   id,
   notes,
+  status,
   dispatch,
   openNotesId,
   setOpenNotesId,
@@ -71,9 +74,13 @@ function Monster({
         </button>
 
         <MonsterCalc dispatch={dispatch} />
+        <StatusOverview status={status} />
       </div>
       {notesOpened ? (
-        <MonsterNotes notes={notes} dispatch={dispatch} id={id} />
+        <div className="mx-10 my-1 mb-4">
+          <MonsterNotes notes={notes} dispatch={dispatch} id={id} />
+          <StatusEffects status={status} dispatch={dispatch} id={id} />
+        </div>
       ) : null}
     </div>
   );

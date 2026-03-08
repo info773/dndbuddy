@@ -6,6 +6,7 @@ const ACTIONS = {
   ADD_MONSTER_HP: "add_monster_hp",
   SUBSTRACT_MONSTER_HP: "substract_monster_hp",
   CHANGE_NOTES: "change_notes",
+  CLICK_STATUS_BOX: "click_status_box",
 };
 
 export default ACTIONS;

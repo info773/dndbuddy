@@ -15,6 +15,7 @@ function Form({ dispatch }) {
       hp: form.hp,
       id: id,
       notes: "",
+      status: [],
     };
 
     dispatch({ type: ACTIONS.ADD_MONSTER, payload: newMonster });

@@ -64,6 +64,23 @@ function reducer(state, action) {
         ),
       };
 
+    case ACTIONS.CLICK_STATUS_BOX:
+      return {
+        ...state,
+        monsters: state.monsters.map((monster) =>
+          monster.id === action.payload.id
+            ? {
+                ...monster,
+                status: monster.status.includes(action.payload.statusEffect)
+                  ? monster.status.filter(
+                      (s) => s !== action.payload.statusEffect,
+                    )
+                  : [...monster.status, action.payload.statusEffect],
+              }
+            : monster,
+        ),
+      };
+
     default:
       throw new Error("action unkown");
   }
