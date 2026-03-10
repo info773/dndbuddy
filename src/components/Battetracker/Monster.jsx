@@ -73,7 +73,7 @@ function Monster({
           {notes.length === 0 ? "..." : "!!!"}
         </button>
 
-        <MonsterCalc dispatch={dispatch} />
+        <MonsterCalc dispatch={dispatch} id={id} />
         <StatusOverview status={status} />
       </div>
       {notesOpened ? (
