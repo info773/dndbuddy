@@ -61,6 +61,21 @@ const initialState = {
         },
       ],
     },
+    {
+      id: 2,
+      name: "Encounter 2",
+      createdAt: "09.03.2026 - 20:31",
+      monsters: [
+        {
+          name: "GOBLIN",
+          init: 99,
+          hp: 99,
+          id: 1,
+          notes: "",
+          status: ["Charmed", "Blinded", "Exhausted"],
+        },
+      ],
+    },
   ],
   activeEncounterId: 1,
   monsterFilter: "desc",

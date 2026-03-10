@@ -1,7 +1,8 @@
 import { useState } from "react";
 import ACTIONS from "../../store/actions";
+import EncounterSelect from "./EncounterSelect";
 
-function Form({ dispatch }) {
+function Form({ dispatch, encounters, activeEncounterId }) {
   const [form, setForm] = useState({ name: "", init: "", hp: "" });
 
   function addNewMonster(e) {
@@ -24,10 +25,15 @@ function Form({ dispatch }) {
 
   return (
     <div>
-      <form onSubmit={addNewMonster} className="flex justify-center gap-2">
+      <EncounterSelect
+        encounters={encounters}
+        dispatch={dispatch}
+        activeEncounterId={activeEncounterId}
+      />
+      <form onSubmit={addNewMonster} className="flex gap-2 mx-16 my-5">
         <input
           type="text"
-          placeholder="name"
+          placeholder="Monster"
           className="bg-slate-300 p-2 border-2 rounded-md"
           value={form.name}
           onChange={(e) =>
@@ -36,7 +42,7 @@ function Form({ dispatch }) {
         />
         <input
           type="text"
-          placeholder="init"
+          placeholder="Intiative"
           className="bg-slate-300 p-2 border-2 rounded-md"
           value={form.init}
           onChange={(e) =>
@@ -45,7 +51,7 @@ function Form({ dispatch }) {
         />
         <input
           type="text"
-          placeholder="hp"
+          placeholder="HP"
           className="bg-slate-300 p-2 border-2 rounded-md"
           value={form.hp}
           onChange={(e) => setForm((form) => ({ ...form, hp: e.target.value }))}

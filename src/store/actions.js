@@ -7,6 +7,10 @@ const ACTIONS = {
   SUBSTRACT_MONSTER_HP: "substract_monster_hp",
   CHANGE_NOTES: "change_notes",
   CLICK_STATUS_BOX: "click_status_box",
+  CHANGE_ENCOUNTER_ID: "change_encounter_id",
+  ADD_ENCOUNTER: "add_encounter",
+  CLONE_ENCOUNTER: "clone_encounter",
+  RENAME_ENCOUNTER: "rename_encounter",
 };
 
 export default ACTIONS;

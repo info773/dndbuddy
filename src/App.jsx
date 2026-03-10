@@ -7,6 +7,9 @@ import initialState from "./store/initialState";
 
 function reducer(state, action) {
   const activeId = state.activeEncounterId;
+  const activeEncounter = state.encounters.find(
+    (e) => e.id === state.activeEncounterId,
+  );
 
   switch (action.type) {
     case ACTIONS.ADD_MONSTER:
@@ -146,6 +149,63 @@ function reducer(state, action) {
         ),
       };
 
+    case ACTIONS.CHANGE_ENCOUNTER_ID:
+      return {
+        ...state,
+        activeEncounterId: action.payload,
+      };
+
+    case ACTIONS.ADD_ENCOUNTER: {
+      const nextId =
+        state.encounters.length === 0
+          ? 1
+          : Math.max(...state.encounters.map((e) => e.id)) + 1;
+
+      const newEncounter = {
+        id: nextId,
+        name: `Encounter ${nextId}`,
+        monsters: [],
+      };
+
+      return {
+        ...state,
+        encounters: [...state.encounters, newEncounter],
+        activeEncounterId: nextId,
+      };
+    }
+
+    case ACTIONS.CLONE_ENCOUNTER: {
+      const nextId =
+        state.encounters.length === 0
+          ? 1
+          : Math.max(...state.encounters.map((e) => e.id)) + 1;
+
+      const newEncounter = {
+        id: nextId,
+        name: `${activeEncounter.name} CLONE  `,
+        monsters: activeEncounter.monsters,
+      };
+
+      return {
+        ...state,
+        encounters: [...state.encounters, newEncounter],
+        activeEncounterId: nextId,
+      };
+    }
+
+    case ACTIONS.RENAME_ENCOUNTER:
+      return {
+        ...state,
+        encounters: state.encounters.map((e) =>
+          e.id === activeId
+            ? {
+                ...e,
+                name: action.payload,
+              }
+            : e,
+        ),
+      };
+
     default:
       throw new Error("action unkown");
   }
@@ -154,9 +214,6 @@ function reducer(state, action) {
 export default function App() {
   const [{ encounters, activeEncounterId, monsterFilter }, dispatch] =
     useReducer(reducer, initialState);
-
-  const activeEncounter = encounters.find((e) => e.id === activeEncounterId);
-  const activeMonsters = activeEncounter?.monsters ?? [];
 
   return (
     <div className="bg-slate-400 min-h-screen">
@@ -167,9 +224,10 @@ export default function App() {
             path="/battletracker"
             element={
               <Battletracker
-                monsters={activeMonsters}
                 monsterFilter={monsterFilter}
                 dispatch={dispatch}
+                encounters={encounters}
+                activeEncounterId={activeEncounterId}
               />
             }
           />
