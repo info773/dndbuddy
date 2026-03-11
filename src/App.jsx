@@ -183,6 +183,27 @@ function reducer(state, action) {
         ),
       };
 
+    case ACTIONS.CLEAR_STATUS:
+    case ACTIONS.SELECT_MONSTER:
+      return {
+        ...state,
+        encounters: state.encounters.map((e) =>
+          e.id === activeId
+            ? {
+                ...e,
+                monsters: e.monsters.map((monster) =>
+                  monster.id === action.payload.id
+                    ? {
+                        ...monster,
+                        status: [],
+                      }
+                    : monster,
+                ),
+              }
+            : e,
+        ),
+      };
+
     case ACTIONS.CHANGE_ENCOUNTER_ID:
       return {
         ...state,

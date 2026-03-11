@@ -20,7 +20,7 @@ function Monster({
 
   return (
     <div className={isSelected ? "bg-slate-600 rounded-md" : null}>
-      <div className="flex gap-2 p-1">
+      <div className="flex items-center gap-2 p-1">
         <button
           onClick={() =>
             dispatch({ type: ACTIONS.DELETE_MONSTER, payload: id })
@@ -79,8 +79,9 @@ function Monster({
           onChange={() =>
             dispatch({ type: ACTIONS.SELECT_MONSTER, payload: { id } })
           }
-          type="checkbox"
-          className="mx-5"
+          type="radio"
+          name="active-monster"
+          className="checked:bg-slate-900 mx-5 border-2 border-slate-700 checked:border-slate-900 rounded-full w-4 h-4 appearance-none"
           checked={isSelected}
         />
         <StatusOverview status={status} isSelected={isSelected} />

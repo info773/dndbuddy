@@ -8,6 +8,7 @@ const ACTIONS = {
   SELECT_MONSTER: "select_monster",
   CHANGE_NOTES: "change_notes",
   CLICK_STATUS_BOX: "click_status_box",
+  CLEAR_STATUS: "clear_status",
   CHANGE_ENCOUNTER_ID: "change_encounter_id",
   ADD_ENCOUNTER: "add_encounter",
   CLONE_ENCOUNTER: "clone_encounter",
