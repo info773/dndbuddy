@@ -5,6 +5,7 @@ const ACTIONS = {
   CHANGE_MONSTER_FILTER: "change_monster_filter",
   ADD_MONSTER_HP: "add_monster_hp",
   SUBSTRACT_MONSTER_HP: "substract_monster_hp",
+  SELECT_MONSTER: "select_monster",
   CHANGE_NOTES: "change_notes",
   CLICK_STATUS_BOX: "click_status_box",
   CHANGE_ENCOUNTER_ID: "change_encounter_id",

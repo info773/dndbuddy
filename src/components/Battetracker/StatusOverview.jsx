@@ -1,4 +1,4 @@
-function StatusOverview({ status = [] }) {
+function StatusOverview({ status = [], isSelected }) {
   const max = 4;
   const shown = status.slice(0, max);
   const text = shown.join(", ");
@@ -6,9 +6,21 @@ function StatusOverview({ status = [] }) {
   return (
     <div>
       {status.length ? (
-        <div>{status.length > max ? `${text}, [...]` : text}</div>
+        <div
+          className={
+            isSelected ? "opacity-70 text-white" : "opacity-70 text-slate-900"
+          }
+        >
+          {status.length > max ? `${text}, [...]` : text}
+        </div>
       ) : (
-        <p className="opacity-40 text-slate-500">No status effects</p>
+        <p
+          className={
+            isSelected ? "opacity-40 text-white" : "opacity-40 text-slate-500"
+          }
+        >
+          No status effects
+        </p>
       )}
     </div>
   );

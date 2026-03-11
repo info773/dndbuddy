@@ -17,6 +17,7 @@ function Form({ dispatch, encounters, activeEncounterId }) {
       id: id,
       notes: "",
       status: [],
+      isSelected: false,
     };
 
     dispatch({ type: ACTIONS.ADD_MONSTER, payload: newMonster });

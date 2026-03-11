@@ -11,6 +11,7 @@ function Monster({
   id,
   notes,
   status,
+  isSelected,
   dispatch,
   openNotesId,
   setOpenNotesId,
@@ -18,7 +19,7 @@ function Monster({
   const notesOpened = openNotesId === id;
 
   return (
-    <div>
+    <div className={isSelected ? "bg-slate-600 rounded-md" : null}>
       <div className="flex gap-2 p-1">
         <button
           onClick={() =>
@@ -74,7 +75,15 @@ function Monster({
         </button>
 
         <MonsterCalc dispatch={dispatch} id={id} />
-        <StatusOverview status={status} />
+        <input
+          onChange={() =>
+            dispatch({ type: ACTIONS.SELECT_MONSTER, payload: { id } })
+          }
+          type="checkbox"
+          className="mx-5"
+          checked={isSelected}
+        />
+        <StatusOverview status={status} isSelected={isSelected} />
       </div>
       {notesOpened ? (
         <div className="mx-10 my-1 mb-4">

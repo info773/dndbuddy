@@ -117,6 +117,29 @@ function reducer(state, action) {
         ),
       };
 
+    case ACTIONS.SELECT_MONSTER:
+      return {
+        ...state,
+        encounters: state.encounters.map((e) =>
+          e.id === activeId
+            ? {
+                ...e,
+                monsters: e.monsters.map((monster) =>
+                  monster.id === action.payload.id
+                    ? {
+                        ...monster,
+                        isSelected: !monster.isSelected,
+                      }
+                    : {
+                        ...monster,
+                        isSelected: false,
+                      },
+                ),
+              }
+            : e,
+        ),
+      };
+
     case ACTIONS.CHANGE_NOTES:
       return {
         ...state,
@@ -341,7 +364,7 @@ export default function App() {
 
   if (authLoading) {
     return (
-      <div className="bg-slate-400 min-h-screen flex items-center justify-center">
+      <div className="flex justify-center items-center bg-slate-400 min-h-screen">
         <p>Loading...</p>
       </div>
     );
