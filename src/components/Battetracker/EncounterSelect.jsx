@@ -52,6 +52,12 @@ function EncounterSelect({ encounters, dispatch, activeEncounterId }) {
           className="bg-slate-700 mx-1 p-2 border-2 rounded-md text-slate-100"
         />
       </form>
+      <button
+        onClick={() => dispatch({ type: ACTIONS.DELETE_ENCOUNTER })}
+        className="bg-slate-700 mx-1 p-2 border-2 rounded-md text-slate-100"
+      >
+        Delete
+      </button>
     </div>
   );
 }

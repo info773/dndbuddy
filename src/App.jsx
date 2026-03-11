@@ -1,6 +1,14 @@
+// IDEAS
+// - Add Player-Adding Option
+// - Add a Select to whatever Monster is active / Maybe also a "next" button
+//
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Battletracker from "./pages/Battlettracker";
+import Impressum from "./pages/Impressum";
+import Datenschutz from "./pages/Datenschutz";
+import Login from "./pages/Login";
 import { useReducer, useEffect, useRef, useState } from "react";
 import ACTIONS from "./store/actions";
 import initialState from "./store/initialState";
@@ -209,6 +217,34 @@ function reducer(state, action) {
         ),
       };
 
+    case ACTIONS.DELETE_ENCOUNTER: {
+      const deletedId = state.activeEncounterId;
+      const remaining = state.encounters.filter((e) => e.id !== deletedId);
+
+      if (remaining.length === 0) {
+        return {
+          ...state,
+          encounters: [
+            {
+              id: 1,
+              name: "Encounter 1",
+              createdAt: "",
+              monsters: [],
+            },
+          ],
+          activeEncounterId: 1,
+        };
+      }
+
+      const nextActiveId = remaining[0]?.id ?? null;
+
+      return {
+        ...state,
+        encounters: remaining,
+        activeEncounterId: nextActiveId,
+      };
+    }
+
     case ACTIONS.HYDRATE_STATE:
       return action.payload ?? state;
 
@@ -220,6 +256,8 @@ function reducer(state, action) {
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isLoading, setIsLoading] = useState(true);
+  const [session, setSession] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const isHydrating = useRef(true);
 
   // LOAD ONCE
@@ -274,11 +312,52 @@ export default function App() {
     return () => clearTimeout(t);
   }, [state]);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (!isMounted) return;
+        setSession(data?.session ?? null);
+        setAuthLoading(false);
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        setAuthLoading(false);
+      });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      setSession(newSession);
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  if (authLoading) {
+    return (
+      <div className="bg-slate-400 min-h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return <Login />;
+  }
+
   return (
     <div className="bg-slate-400 min-h-screen">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route path="/impressum" element={<Impressum />} />
+          <Route path="/datenschutz" element={<Datenschutz />} />
           <Route
             path="/battletracker"
             element={

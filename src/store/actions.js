@@ -11,6 +11,7 @@ const ACTIONS = {
   ADD_ENCOUNTER: "add_encounter",
   CLONE_ENCOUNTER: "clone_encounter",
   RENAME_ENCOUNTER: "rename_encounter",
+  DELETE_ENCOUNTER: "delete_encounter",
   HYDRATE_STATE: "hydrate_state",
 };
 

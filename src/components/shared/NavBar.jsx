@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import Logo from "./Logo";
+import { supabase } from "../../lib/supabaseClient";
 
 function NavBar() {
   return (
@@ -17,6 +18,15 @@ function NavBar() {
         </li>
         <li>
           <span className="nav-pill">XYZ</span>
+        </li>
+        <li>
+          <button
+            className="nav-pill"
+            type="button"
+            onClick={() => supabase.auth.signOut()}
+          >
+            Logout
+          </button>
         </li>
       </ul>
     </div>
