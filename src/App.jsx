@@ -1,9 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Battletracker from "./pages/Battlettracker";
-import { useReducer } from "react";
+import { useReducer, useEffect, useRef } from "react";
 import ACTIONS from "./store/actions";
 import initialState from "./store/initialState";
+import { supabase } from "./lib/supabaseClient";
+
+const STATE_ROW_ID = "00000000-0000-0000-0000-000000000001";
 
 function reducer(state, action) {
   const activeId = state.activeEncounterId;
@@ -206,14 +209,67 @@ function reducer(state, action) {
         ),
       };
 
+    case ACTIONS.HYDRATE_STATE:
+      return action.payload ?? state;
+
     default:
       throw new Error("action unkown");
   }
 }
 
 export default function App() {
-  const [{ encounters, activeEncounterId, monsterFilter }, dispatch] =
-    useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const isHydrating = useRef(true);
+
+  // LOAD ONCE
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data, error } = await supabase
+          .from("app_state")
+          .select("state")
+          .eq("id_uuid", STATE_ROW_ID)
+          .maybeSingle();
+
+        if (error) {
+          console.error("Supabase load failed:", error.message);
+          isHydrating.current = false;
+          return;
+        }
+
+        if (data?.state) {
+          dispatch({ type: ACTIONS.HYDRATE_STATE, payload: data.state });
+        }
+      } catch (err) {
+        console.error("Supabase load threw:", err);
+      } finally {
+        isHydrating.current = false;
+      }
+    })();
+  }, []);
+
+  // SAVE on changes
+  useEffect(() => {
+    if (isHydrating.current) return;
+
+    const t = setTimeout(async () => {
+      try {
+        const { error } = await supabase.from("app_state").upsert({
+          id_uuid: STATE_ROW_ID,
+          state,
+          updated_at: new Date().toISOString(),
+        });
+
+        if (error) {
+          console.error("Supabase save failed:", error.message);
+        }
+      } catch (err) {
+        console.error("Supabase save threw:", err);
+      }
+    }, 300);
+
+    return () => clearTimeout(t);
+  }, [state]);
 
   return (
     <div className="bg-slate-400 min-h-screen">
@@ -224,10 +280,10 @@ export default function App() {
             path="/battletracker"
             element={
               <Battletracker
-                monsterFilter={monsterFilter}
+                monsterFilter={state.monsterFilter}
                 dispatch={dispatch}
-                encounters={encounters}
-                activeEncounterId={activeEncounterId}
+                encounters={state.encounters}
+                activeEncounterId={state.activeEncounterId}
               />
             }
           />
