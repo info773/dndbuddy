@@ -76,13 +76,14 @@ function Monster({
 
         <MonsterCalc dispatch={dispatch} id={id} />
         <input
-          onChange={() =>
+          onClick={() =>
             dispatch({ type: ACTIONS.SELECT_MONSTER, payload: { id } })
           }
           type="radio"
           name="active-monster"
           className="checked:bg-slate-900 mx-5 border-2 border-slate-700 checked:border-slate-900 rounded-full w-4 h-4 appearance-none"
           checked={isSelected}
+          readOnly
         />
         <StatusOverview status={status} isSelected={isSelected} />
       </div>
