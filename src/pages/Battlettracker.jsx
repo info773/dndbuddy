@@ -9,6 +9,7 @@ function Battlettracker({
   dispatch,
   encounters,
   activeEncounterId,
+  isLoading,
 }) {
   const activeEncounter = encounters.find((e) => e.id === activeEncounterId);
   const activeMonsters = activeEncounter?.monsters ?? [];
@@ -26,6 +27,7 @@ function Battlettracker({
         monsters={activeMonsters}
         monsterFilter={monsterFilter}
         dispatch={dispatch}
+        isLoading={isLoading}
       />
       <div className="mt-auto">
         <Footer />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Monster from "./Monster";
 import MonsterFilter from "./MonsterFilter";
 
-function Tracker({ monsters, monsterFilter, dispatch }) {
+function Tracker({ monsters, monsterFilter, dispatch, isLoading }) {
   const [openNotesId, setOpenNotesId] = useState(null);
 
   if (monsterFilter === "desc") {
@@ -18,6 +18,11 @@ function Tracker({ monsters, monsterFilter, dispatch }) {
   return (
     <div className="p-6">
       <MonsterFilter dispatch={dispatch} />
+      {isLoading ? (
+        <div className="bg-slate-200 mx-10 my-4 mb-4 px-3 py-2 rounded rounded-md w-100 text-sm">
+          Loading from server...
+        </div>
+      ) : null}
       <div>
         {monsters.map((monster) => (
           <Monster

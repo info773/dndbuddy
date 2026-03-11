@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Battletracker from "./pages/Battlettracker";
-import { useReducer, useEffect, useRef } from "react";
+import { useReducer, useEffect, useRef, useState } from "react";
 import ACTIONS from "./store/actions";
 import initialState from "./store/initialState";
 import { supabase } from "./lib/supabaseClient";
@@ -219,6 +219,7 @@ function reducer(state, action) {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isLoading, setIsLoading] = useState(true);
   const isHydrating = useRef(true);
 
   // LOAD ONCE
@@ -234,6 +235,7 @@ export default function App() {
         if (error) {
           console.error("Supabase load failed:", error.message);
           isHydrating.current = false;
+          setIsLoading(false);
           return;
         }
 
@@ -244,6 +246,7 @@ export default function App() {
         console.error("Supabase load threw:", err);
       } finally {
         isHydrating.current = false;
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -284,6 +287,7 @@ export default function App() {
                 dispatch={dispatch}
                 encounters={state.encounters}
                 activeEncounterId={state.activeEncounterId}
+                isLoading={isLoading}
               />
             }
           />
