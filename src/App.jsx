@@ -184,7 +184,6 @@ function reducer(state, action) {
       };
 
     case ACTIONS.CLEAR_STATUS:
-    case ACTIONS.SELECT_MONSTER:
       return {
         ...state,
         encounters: state.encounters.map((e) =>
