@@ -4,6 +4,7 @@ import EncounterSelect from "./EncounterSelect";
 
 function Form({ dispatch, encounters, activeEncounterId }) {
   const [form, setForm] = useState({ name: "", init: "", hp: "" });
+  const [isOpen, setIsOpen] = useState(true);
 
   function addNewMonster(e) {
     e.preventDefault();
@@ -35,41 +36,53 @@ function Form({ dispatch, encounters, activeEncounterId }) {
 
   return (
     <div>
-      <EncounterSelect
-        encounters={encounters}
-        dispatch={dispatch}
-        activeEncounterId={activeEncounterId}
-      />
-      <form onSubmit={addNewMonster} className="flex gap-2 mx-16 my-5">
-        <input
-          type="text"
-          placeholder="Monster"
-          className="bg-slate-300 p-2 border-2 rounded-md"
-          value={form.name}
-          onChange={(e) =>
-            setForm((form) => ({ ...form, name: e.target.value }))
-          }
-        />
-        <input
-          type="text"
-          placeholder="Intiative"
-          className="bg-slate-300 p-2 border-2 rounded-md"
-          value={form.init}
-          onChange={(e) =>
-            setForm((form) => ({ ...form, init: e.target.value }))
-          }
-        />
-        <input
-          type="text"
-          placeholder="HP"
-          className="bg-slate-300 p-2 border-2 rounded-md"
-          value={form.hp}
-          onChange={(e) => setForm((form) => ({ ...form, hp: e.target.value }))}
-        />
-        <button className="bg-slate-700 hover:bg-slate-600 p-1 border-2 rounded-md text-slate-50 transition-colors duration-150">
-          Add
-        </button>
-      </form>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="items-center bg-slate-700 hover:bg-slate-600 mx-16 mb-2 px-1 border-2 rounded-md text-slate-50 align-middle transition-colors duration-150"
+      >
+        {isOpen ? "↑" : "↓"}
+      </button>
+      {isOpen && (
+        <>
+          <EncounterSelect
+            encounters={encounters}
+            dispatch={dispatch}
+            activeEncounterId={activeEncounterId}
+          />
+          <form onSubmit={addNewMonster} className="flex gap-2 mx-16 my-5">
+            <input
+              type="text"
+              placeholder="Monster"
+              className="bg-slate-300 p-2 border-2 rounded-md"
+              value={form.name}
+              onChange={(e) =>
+                setForm((form) => ({ ...form, name: e.target.value }))
+              }
+            />
+            <input
+              type="text"
+              placeholder="Intiative"
+              className="bg-slate-300 p-2 border-2 rounded-md"
+              value={form.init}
+              onChange={(e) =>
+                setForm((form) => ({ ...form, init: e.target.value }))
+              }
+            />
+            <input
+              type="text"
+              placeholder="HP"
+              className="bg-slate-300 p-2 border-2 rounded-md"
+              value={form.hp}
+              onChange={(e) =>
+                setForm((form) => ({ ...form, hp: e.target.value }))
+              }
+            />
+            <button className="bg-slate-700 hover:bg-slate-600 p-1 border-2 rounded-md text-slate-50 transition-colors duration-150">
+              Add
+            </button>
+          </form>
+        </>
+      )}
     </div>
   );
 }
