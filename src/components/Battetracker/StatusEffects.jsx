@@ -2,7 +2,7 @@ import Checkbox from "./Checkbox";
 import statusEffectsList from "../../store/statusEffectsList";
 import ACTIONS from "../../store/actions";
 
-function StatusEffects({ status, dispatch, id }) {
+function StatusEffects({ status, dispatch, id, isPlayer }) {
   return (
     <>
       <div className="grid grid-cols-4 w-120">
@@ -16,6 +16,20 @@ function StatusEffects({ status, dispatch, id }) {
           />
         ))}
       </div>
+      <div className="flex gap-2 mt-4">
+        <input
+          type="checkbox"
+          checked={isPlayer}
+          onChange={() =>
+            dispatch({
+              type: ACTIONS.CHANGE_MONSTER,
+              payload: { id, value: !isPlayer, prop: "isPlayer" },
+            })
+          }
+        />
+        <span>Player</span>
+      </div>
+
       <button
         onClick={() =>
           dispatch({ type: ACTIONS.CLEAR_STATUS, payload: { id } })

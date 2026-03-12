@@ -5,6 +5,7 @@ import EncounterSelect from "./EncounterSelect";
 function Form({ dispatch, encounters, activeEncounterId }) {
   const [form, setForm] = useState({ name: "", init: "", hp: "" });
   const [isOpen, setIsOpen] = useState(true);
+  const [isPlayer, setIsPlayer] = useState(false);
 
   function addNewMonster(e) {
     e.preventDefault();
@@ -28,6 +29,7 @@ function Form({ dispatch, encounters, activeEncounterId }) {
       notes: "",
       status: [],
       isSelected: false,
+      isPlayer,
     };
 
     dispatch({ type: ACTIONS.ADD_MONSTER, payload: newMonster });
@@ -80,6 +82,14 @@ function Form({ dispatch, encounters, activeEncounterId }) {
             <button className="bg-slate-700 hover:bg-slate-600 p-1 border-2 rounded-md text-slate-50 transition-colors duration-150">
               Add
             </button>
+            <div className="flex justify-center items-center gap-2">
+              <input
+                onChange={() => setIsPlayer(!isPlayer)}
+                checked={isPlayer}
+                type="checkbox"
+              />{" "}
+              <span>Player</span>
+            </div>
           </form>
         </>
       )}

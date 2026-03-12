@@ -17,31 +17,41 @@ function Tracker({ monsters, monsterFilter, dispatch, isLoading }) {
   }
 
   return (
-    <div className="p-6">
-      <MonsterFilter dispatch={dispatch} />
-      {isLoading ? (
-        <div className="bg-slate-200 mx-10 my-4 mb-4 px-3 py-2 rounded-md w-100 text-sm">
-          Loading from server...
+    <>
+      {sorted.length !== 0 ? (
+        <div className="p-6">
+          <MonsterFilter dispatch={dispatch} />
+          <div className="flex mx-12">
+            <span>Name</span>
+            <span className="ml-27">Initative</span>
+            <span className="ml-24">(HP)</span>
+          </div>
+          {isLoading ? (
+            <div className="bg-slate-200 mx-10 my-4 mb-4 px-3 py-2 rounded-md w-100 text-sm">
+              Loading from server...
+            </div>
+          ) : null}
+          <div>
+            {sorted.map((monster) => (
+              <Monster
+                name={monster.name}
+                init={monster.init}
+                hp={monster.hp}
+                key={monster.id}
+                id={monster.id}
+                notes={monster.notes}
+                status={monster.status}
+                isSelected={monster.isSelected}
+                isPlayer={monster.isPlayer}
+                dispatch={dispatch}
+                openNotesId={openNotesId}
+                setOpenNotesId={setOpenNotesId}
+              />
+            ))}
+          </div>
         </div>
       ) : null}
-      <div>
-        {sorted.map((monster) => (
-          <Monster
-            name={monster.name}
-            init={monster.init}
-            hp={monster.hp}
-            key={monster.id}
-            id={monster.id}
-            notes={monster.notes}
-            status={monster.status}
-            isSelected={monster.isSelected}
-            dispatch={dispatch}
-            openNotesId={openNotesId}
-            setOpenNotesId={setOpenNotesId}
-          />
-        ))}
-      </div>
-    </div>
+    </>
   );
 }
 
