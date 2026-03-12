@@ -8,6 +8,15 @@ function Form({ dispatch, encounters, activeEncounterId }) {
   function addNewMonster(e) {
     e.preventDefault();
 
+    if (form.init === "" && form.hp === "")
+      return alert("Initative and HP can't be empty");
+    if (!Number.isInteger(Number(form.hp)))
+      return alert("HP must be a valid number");
+    if (!Number.isInteger(Number(form.init)))
+      return alert("Initiative must be a valid number");
+    if (form.hp === "") return alert("HP can't be emtpy");
+    if (form.init === "") return alert("Initative can't be emtpy");
+
     const id = crypto.randomUUID();
 
     const newMonster = {

@@ -19,7 +19,11 @@ function Monster({
   const notesOpened = openNotesId === id;
 
   return (
-    <div className={isSelected ? "bg-slate-600 rounded-md" : null}>
+    <div
+      className={`rounded-md ${
+        isSelected ? "bg-slate-600" : ""
+      } ${hp <= 0 ? "opacity-30" : ""}`}
+    >
       <div className="flex items-center gap-2 p-1">
         <button
           onClick={() =>
