@@ -24,7 +24,11 @@ function Form({ dispatch, encounters, activeEncounterId }) {
         : Number(hpValue);
     const init = initValue === "" ? 0 : Number(initValue);
     const name =
-      nameValue === "" ? (isPlayer ? "Player" : "Monster") : nameValue;
+      nameValue.trim() === ""
+        ? isPlayer
+          ? "Player"
+          : "Monster"
+        : nameValue.trim();
 
     if (!Number.isInteger(hp)) return alert("HP must be a valid number");
     if (!Number.isInteger(init))
